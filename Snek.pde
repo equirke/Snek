@@ -26,7 +26,13 @@ void draw()
     head.addBody();
     food = new Food(getRand(1, 24), getRand(1, 24), sqWidth, color(255, 255, 0));
   }
+  
+  if(head.eatSelf())
+  {
+    exit();
+  }
 }
+
 
 void keyReleased()
 {
