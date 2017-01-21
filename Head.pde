@@ -97,4 +97,23 @@ class Head
       return false;
     }
   }
+  
+  boolean eatSelf()
+  {
+    Body cur = body;
+    PVector bpos;
+    while(cur != null)
+    {
+      bpos = cur.getPos();
+      
+      if(bpos.x == pos.x &&  bpos.y == pos.y)
+      {
+        return true;
+      }
+      
+      cur = cur.getNext();
+    }
+    
+    return false;
+  }
 }
