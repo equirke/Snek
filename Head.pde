@@ -4,6 +4,7 @@ class Head
   float dirX, dirY;
   float size;
   color c;
+  char blockKey;
   
   Body body;
   
@@ -13,6 +14,7 @@ class Head
     this.size = size;
     this.dirX = -sqWidth;
     this.dirY = 0;
+    blockKey = 0;
     this.c = c;
     body = new Body(x + sqWidth, y, size, c, bodycount);
   }
@@ -39,28 +41,44 @@ class Head
   
   void setDir()
   {
-    dirX = 0;
-    dirY = 0;
-    if(key == 'a')
+    if(key != blockKey)
     {
-      dirX = -sqWidth;
+      switch(key)
+      {
+        
+        case 'a':
+        {
+          dirX = -sqWidth;
+          dirY = 0;
+          blockKey = 'd';
+          break;
+        }
+        
+        case 'd':
+        {
+          dirX = sqWidth;
+          dirY= 0;
+          blockKey = 'a';
+          break;
+        }
+        
+        case 'w':
+        {
+          dirY = -sqWidth;
+          dirX = 0;
+          blockKey = 's';
+          break;
+        }
+        
+        case 's':
+        {
+          dirY = sqWidth;
+          dirX = 0;
+          blockKey = 'w';
+          break;
+        }
+      } 
     }
-    
-    if(key == 'd')
-    {
-      dirX = sqWidth;
-    }
-    
-    if(key == 'w')
-    {
-      dirY = -sqWidth;
-    }
-    
-    if(key == 's')
-    {
-      dirY = sqWidth;
-    }
-    
   }
   
   void addBody()
