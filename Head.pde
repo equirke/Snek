@@ -67,4 +67,16 @@ class Head
   {
     body.addBody();
   }
+  
+  boolean eat(PVector fpos)
+  {
+    if(fpos.x == pos.x && fpos.y == pos.y)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 }
