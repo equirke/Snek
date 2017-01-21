@@ -10,4 +10,15 @@ class Food
     this.size = size;
     this.c = c;
   }
+  
+  void render()
+  {
+    fill(c);
+    rect(pos.x, pos.y, size, size);
+  }
+  
+  PVector getPos()
+  {
+    return pos;
+  }
 }
