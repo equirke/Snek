@@ -50,4 +50,14 @@ class Body
       next.addBody();
     }
   }
+  
+  PVector getPos()
+  {
+    return pos;  
+  }
+  
+  Body getNext()
+  {
+    return next;
+  }
 }
