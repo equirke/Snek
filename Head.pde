@@ -62,4 +62,9 @@ class Head
     }
     
   }
+  
+  void addBody()
+  {
+    body.addBody();
+  }
 }
