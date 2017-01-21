@@ -15,4 +15,27 @@ class Body
       next = new Body(x + sqWidth, y, size, c, bodycount - 1);
     }
   }
+  
+  void render()
+  {
+    fill(c);
+    stroke(255);
+    rect(pos.x, pos.y, size, size);
+    
+    if(next != null)
+    {
+      next.render();
+    }
+  }
+  
+  
+  void move(PVector pos)
+  {
+    if(next != null)
+    {
+      next.move(this.pos);
+    }
+    
+    this.pos.set(pos);
+  }
 }
