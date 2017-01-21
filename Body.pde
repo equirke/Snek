@@ -38,4 +38,16 @@ class Body
     
     this.pos.set(pos);
   }
+  
+  void addBody()
+  {
+    if(next == null)
+    {
+      next = new Body(pos.x + sqWidth, pos.y, size, c, 0);
+    }
+    else
+    {
+      next.addBody();
+    }
+  }
 }
