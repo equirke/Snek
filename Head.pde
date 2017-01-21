@@ -36,4 +36,30 @@ class Head
     pos.x = (((pos.x % width) + width) % width);
     pos.y = (((pos.y % height) + height) % height);
   }
+  
+  void setDir()
+  {
+    dirX = 0;
+    dirY = 0;
+    if(key == 'a')
+    {
+      dirX = -sqWidth;
+    }
+    
+    if(key == 'd')
+    {
+      dirX = sqWidth;
+    }
+    
+    if(key == 'w')
+    {
+      dirY = -sqWidth;
+    }
+    
+    if(key == 's')
+    {
+      dirY = sqWidth;
+    }
+    
+  }
 }
