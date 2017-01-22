@@ -1,7 +1,7 @@
 class Head
 {
   PVector pos;
-  float dirX, dirY;
+  PVector dir;
   float size;
   color c;
   char blockKey;
@@ -12,8 +12,7 @@ class Head
   {
     pos = new PVector(x, y);
     this.size = size;
-    this.dirX = -sqWidth;
-    this.dirY = 0;
+    this.dir = new PVector(-sqWidth, 0);
     blockKey = 0;
     this.c = c;
     body = new Body(x + sqWidth, y, size, c, bodycount);
@@ -30,8 +29,7 @@ class Head
   void move()
   {
     body.move(this.pos);
-    pos.x += dirX;
-    pos.y += dirY;
+    pos.add(dir);
     /*This unweildy bit of maths is needed as
     the % operator returns the remainder rather
     than the modulus in java*/
@@ -48,32 +46,28 @@ class Head
         
         case 'a':
         {
-          dirX = -sqWidth;
-          dirY = 0;
+          dir.set(-sqWidth, 0);
           blockKey = 'd';
           break;
         }
         
         case 'd':
         {
-          dirX = sqWidth;
-          dirY= 0;
+          dir.set(sqWidth, 0);
           blockKey = 'a';
           break;
         }
         
         case 'w':
         {
-          dirY = -sqWidth;
-          dirX = 0;
+          dir.set(0, -sqWidth);
           blockKey = 's';
           break;
         }
         
         case 's':
         {
-          dirY = sqWidth;
-          dirX = 0;
+          dir.set(0, sqWidth);
           blockKey = 'w';
           break;
         }
