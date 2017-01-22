@@ -43,7 +43,7 @@ class Body
   {
     if(next == null)
     {
-      next = new Body(pos.x + sqWidth, pos.y, size, c, 0);
+      next = new Body(pos.x, pos.y, size, c, 0);
     }
     else
     {
