@@ -1,4 +1,6 @@
 float sqWidth;
+int state = 0;
+int subState = 0;
 Head head;
 Food food;
 
