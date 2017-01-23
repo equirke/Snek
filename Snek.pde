@@ -34,7 +34,7 @@ void draw()
 }
 
 
-void keyReleased()
+void keyPressed()
 {
   head.setDir();
 }
