@@ -3,13 +3,15 @@ int state = 0;
 int subState = 0;
 Head head;
 Food food;
-MenuTile[] menu = new MenuTile[3];
+MenuTile[] menu = new MenuTile[2];
 
 void setup()
 {
   size(500, 500);
+  textAlign(CENTER, CENTER);
   sqWidth = width / 50;
-  menu[0] = new MenuTile(50, 50, 200, 40, "Single Player", color(44, 224, 224), color(255));
+  menu[0] = new MenuTile(100, 50, 300, 50, "Single Player", color(44, 224, 224), color(255));
+  menu[1] = new MenuTile(100, 150, 300, 50, "VS AI", color(44, 224, 224), color(255));
 }
 
 void draw()
@@ -27,30 +29,30 @@ void draw()
         break;
       }
       
-      for(int i = 0; i < 1; i++)
+      for(int i = 0; i < 2; i++)
       {
         menu[i].render();
       }
     break;
     case 1:
-    food.render();
-    head.render();
-    
-    if(frameCount % 5 == 0)
-    {
-      head.move();
-    }
-    
-    if(head.eat(food.getPos()))
-    {
-      head.addBody();
-      food = new Food(getRand(1, 24), getRand(1, 24), sqWidth, color(255, 255, 0));
-    }
-    
-    if(head.eatSelf())
-    {
-      exit();
-    }
+      food.render();
+      head.render();
+      
+      if(frameCount % 5 == 0)
+      {
+        head.move();
+      }
+      
+      if(head.eat(food.getPos()))
+      {
+        head.addBody();
+        food = new Food(getRand(1, 24), getRand(1, 24), sqWidth, color(255, 255, 0));
+      }
+      
+      if(head.eatSelf())
+      {
+        exit();
+      }
     break;
   }
 }
@@ -63,7 +65,7 @@ void keyPressed()
 
 void mousePressed()
 {
-  for(int i = 0; i < 1; i++)
+  for(int i = 0; i < 2; i++)
   {
     PVector mpos = menu[i].getPos();
     PVector msize = menu[i].getSize();
