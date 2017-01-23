@@ -21,7 +21,7 @@ class MenuTile
     fill(c);
     rect(pos.x, pos.y, size.x, size.y);
     fill(font);
-    text(menuText, pos.x - size.x / 2, pos.y - size.y /2);
+    text(menuText, pos.x + (size.x /2), pos.y + (size.y /2));
   }
   
   PVector getPos()
