@@ -110,4 +110,29 @@ class Head
     
     return false;
   }
+  
+  boolean onSelf(PVector epos)
+  {
+    
+    if(pos.x == epos.x && pos.y == epos.y)
+    {
+      return true;
+    }
+    
+    Body cur = body;
+    PVector bpos;
+    while(cur != null)
+    {
+      bpos = cur.getPos();
+      
+      if(bpos.x == epos.x &&  bpos.y == epos.y)
+      {
+        return true;
+      }
+      
+      cur = cur.getNext();
+    }
+    
+    return false;
+  }
 }
