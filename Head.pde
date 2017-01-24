@@ -1,40 +1,34 @@
 class Head
 {
-  PVector pos;
-  PVector dir;
+  IVec pos;
+  IVec dir;
   float size;
   color c;
   char blockKey;
   
   Body body;
   
-  Head(float x, float y, float size, color c, int bodycount)
+  Head(int x, int y, float size, color c, int bodycount)
   {
-    pos = new PVector(x, y);
+    pos = new IVec(x, y);
     this.size = size;
-    this.dir = new PVector(-sqWidth, 0);
+    this.dir = new IVec(-1, 0);
     blockKey = 0;
     this.c = c;
-    body = new Body(x + sqWidth, y, size, c, bodycount);
+    body = new Body(x + 1, y, size, c, bodycount);
   }
-  
-  void render()
-  {
-    fill(c);
-    stroke(255);
-    rect(pos.x, pos.y, size, size);
-    body.render();
-  }
-  
+    
   void move()
   {
+    node[pos.x][pos.y].unset(this);
     body.move(this.pos);
     pos.add(dir);
     /*This unweildy bit of maths is needed as
     the % operator returns the remainder rather
     than the modulus in java*/
-    pos.x = (((pos.x % width) + width) % width);
-    pos.y = (((pos.y % height) + height) % height);
+    pos.x = (((pos.x % 50) + 50) % 50);
+    pos.y = (((pos.y % 50) + 50) % 50);
+    node[pos.x][pos.y].set(this);
   }
   
   void setDir()
@@ -46,28 +40,28 @@ class Head
         
         case 'a':
         {
-          dir.set(-sqWidth, 0);
+          dir.set(-1, 0);
           blockKey = 'd';
           break;
         }
         
         case 'd':
         {
-          dir.set(sqWidth, 0);
+          dir.set(1, 0);
           blockKey = 'a';
           break;
         }
         
         case 'w':
         {
-          dir.set(0, -sqWidth);
+          dir.set(0, -1);
           blockKey = 's';
           break;
         }
         
         case 's':
         {
-          dir.set(0, sqWidth);
+          dir.set(0, 1);
           blockKey = 'w';
           break;
         }
@@ -80,8 +74,9 @@ class Head
     body.addBody();
   }
   
-  boolean eat(PVector fpos)
+  boolean eat(Food food)
   {
+    IVec fpos = food.getPos();
     if(fpos.x == pos.x && fpos.y == pos.y)
     {
       return true;
@@ -92,47 +87,18 @@ class Head
     }
   }
   
-  boolean eatSelf()
+  void eat()
   {
-    Body cur = body;
-    PVector bpos;
-    while(cur != null)
+    Body body = node[pos.x][pos.y].getBody();
+    if(body == null)
     {
-      bpos = cur.getPos();
-      
-      if(bpos.x == pos.x &&  bpos.y == pos.y)
-      {
-        return true;
-      }
-      
-      cur = cur.getNext();
+      return;
     }
+    IVec fpos = body.getPos();
     
-    return false;
-  }
-  
-  boolean onSelf(PVector epos)
-  {
-    
-    if(pos.x == epos.x && pos.y == epos.y)
+    if(fpos.x == pos.x && fpos.y == pos.y)
     {
-      return true;
+      body = null;
     }
-    
-    Body cur = body;
-    PVector bpos;
-    while(cur != null)
-    {
-      bpos = cur.getPos();
-      
-      if(bpos.x == epos.x &&  bpos.y == epos.y)
-      {
-        return true;
-      }
-      
-      cur = cur.getNext();
-    }
-    
-    return false;
   }
 }
