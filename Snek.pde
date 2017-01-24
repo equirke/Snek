@@ -57,17 +57,16 @@ void draw()
       if(frameCount % 5 == 0)
       {
         head.move();
+        if(head.eat(food))
+        {
+          head.addBody();
+          food.unset();
+          food = new Food(getRand(1, 24), getRand(1, 24), sqWidth, color(255, 255, 0));
+        }
+      
+        head.eat();
       }
-      
-     if(head.eat(food))
-     {
-        head.addBody();
-        food.unset();
-        food = new Food(getRand(1, 24), getRand(1, 24), sqWidth, color(255, 255, 0));
-      }
-      
-      head.eat();
-      
+            
     break;
     
     case 2:   

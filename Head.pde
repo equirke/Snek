@@ -89,16 +89,35 @@ class Head
   
   void eat()
   {
-    Body body = node[pos.x][pos.y].getBody();
-    if(body == null)
+    Body nodeBody = node[pos.x][pos.y].getBody();
+    Body cur = this.body;
+    Body clear;
+    IVec clearPos;
+    println("here");
+    if(nodeBody == null)
     {
+      println("There");
       return;
-    }
-    IVec fpos = body.getPos();
-    
-    if(fpos.x == pos.x && fpos.y == pos.y)
+    }    
+
+    while(cur != null)
     {
-      body = null;
+      println("loop");
+      if(cur.getNext() == nodeBody)
+      {
+        clear = cur.getNext();
+        cur.next = null;
+        
+        while(clear != null)
+        {
+          clearPos = clear.getPos();
+          node[clearPos.x][clearPos.y].unset(clear);
+          clear = clear.getNext();
+        }
+        return;
+      }
+      
+      cur = cur.getNext();
     }
   }
 }
