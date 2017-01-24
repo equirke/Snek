@@ -1,24 +1,24 @@
 class Food
 {
-  PVector pos;
+  IVec pos;
   float size;
   color c;
   
-  Food(float x, float y, float size, color c)
+  Food(int x, int y, float size, color c)
   {
-    pos = new PVector(x, y);
+    pos = new IVec(x, y);
     this.size = size;
     this.c = c;
+    node[x][y].set(this);
   }
-  
-  void render()
-  {
-    fill(c);
-    rect(pos.x, pos.y, size, size);
-  }
-  
-  PVector getPos()
+    
+  IVec getPos()
   {
     return pos;
+  }
+  
+  void unset()
+  {
+    node[pos.x][pos.y].unset(this);
   }
 }
