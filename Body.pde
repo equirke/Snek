@@ -1,42 +1,31 @@
 class Body
 {
-  PVector pos;
+  IVec pos;
   float size;
   color c;
   Body next;
   
-  Body(float x, float y, float size, color c, int bodycount)
+  Body(int x, int y, float size, color c, int bodycount)
   {
-      pos = new PVector(x, y);
+      pos = new IVec(x, y);
       this.size = size;
       this.c = c;
     if(bodycount > 0)
     {
-      next = new Body(x + sqWidth, y, size, c, bodycount - 1);
+      next = new Body(x + 1, y, size, c, bodycount - 1);
     }
   }
   
-  void render()
+  void move(IVec pos)
   {
-    fill(c);
-    stroke(255);
-    rect(pos.x, pos.y, size, size);
-    
-    if(next != null)
-    {
-      next.render();
-    }
-  }
-  
-  
-  void move(PVector pos)
-  {
+    node[this.pos.x][this.pos.y].unset(this);
     if(next != null)
     {
       next.move(this.pos);
     }
-    
     this.pos.set(pos);
+    node[this.pos.x][this.pos.y].set(this);
+    
   }
   
   void addBody()
@@ -51,7 +40,7 @@ class Body
     }
   }
   
-  PVector getPos()
+  IVec getPos()
   {
     return pos;  
   }
