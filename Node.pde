@@ -1,15 +1,28 @@
 class Node
 {
   PVector pos;
+  IVec index;
   Head head;
   Body body;
   Food food;
+  Node cameFrom;
   
-  Node(float x, float y)
+  Node(float x, float y, int i, int j)
   {
+    index = new IVec(i, j);
     pos = new PVector(x, y);
   }
     
+  void setCameFrom(Node node)
+  {
+    this.cameFrom = node;
+  }
+  
+  Node getCameFrom()
+  {
+    return cameFrom;
+  }
+  
   void set(Head head)
   {
     this.head = head;
@@ -66,4 +79,15 @@ class Node
   {
     return body;
   }
+  
+  PVector getPos()
+  {
+    return pos;
+  }
+  
+  IVec getIVec()
+  {
+    return index;
+  }
+  
 }

@@ -111,6 +111,7 @@ class Head
         
         while(clear != null)
         {
+          score--;
           clearPos = clear.getPos();
           node[clearPos.x][clearPos.y].unset(clear);
           clear = clear.getNext();

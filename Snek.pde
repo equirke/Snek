@@ -3,6 +3,7 @@ int state = 0;
 int subState = 0;
 Head head;
 Food food;
+Bot bot;
 Node[][] node = new Node[50][50];
 
 MenuTile[] menu = new MenuTile[2];
@@ -18,7 +19,8 @@ void setup()
   {
     for(int j = 0; j < 50; j++)
     {
-      node[i][j] = new Node(sqWidth * i, sqWidth * j);
+      node[i][j] = new Node(sqWidth * i, sqWidth * j, i, j);
+      //println(i + " " + j);
     }
   }
   frameRate(60);
@@ -34,10 +36,15 @@ void draw()
       {
         case 1:
         head = new Head(25, 25, sqWidth, color(0), 1);
-        food = new Food(getRand(1, 24), getRand(1, 24), sqWidth, color(255, 255, 0));
+        food = new Food(getRand(1, 49), getRand(1, 49), sqWidth, color(255, 255, 0));
         state = 1;
         break;
         case 2:
+        bot = new Bot(25, 25, sqWidth, color(0), 1);
+        food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+        bot.setGoal(food.getPos());
+        bot.seek();
+        state = 2;
         break;
       }
       
@@ -47,6 +54,7 @@ void draw()
       }
     break;
     case 1:
+      printScore();
       for(int i = 0; i < 50; i++)
       {
         for(int j = 0; j < 50; j++)
@@ -69,7 +77,29 @@ void draw()
             
     break;
     
-    case 2:   
+    case 2:
+      for(int i = 0; i < 50; i++)
+      {
+        for(int j = 0; j < 50; j++)
+        {
+          node[i][j].render();
+        }
+      }
+      if(frameCount % 5 == 0)
+      {
+        bot.seek();
+        bot.botDir();
+        bot.move();
+        if(bot.eat(food))
+        {
+          bot.addBody();
+          food.unset();
+          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          bot.setGoal(food.getPos());
+        }
+      
+        bot.eat();
+      }
     break;
   }
 }
@@ -87,17 +117,22 @@ void keyPressed()
 
 void mousePressed()
 {
-  for(int i = 0; i < 2; i++)
+  switch(state)
   {
-    PVector mpos = menu[i].getPos();
-    PVector msize = menu[i].getSize();
-    if(mouseX > mpos.x && mouseY > mpos.y)
-    {
-      if(mouseX < mpos.x + msize.x && mouseY < mpos.y + msize.y)
+    case 0:
+      for(int i = 0; i < 2; i++)
       {
-        subState = i + 1;
+        PVector mpos = menu[i].getPos();
+        PVector msize = menu[i].getSize();
+        if(mouseX > mpos.x && mouseY > mpos.y)
+        {
+          if(mouseX < mpos.x + msize.x && mouseY < mpos.y + msize.y)
+          {
+            subState = i + 1;
+          }
+        }
       }
-    }
+    break;
   }
 }
 
@@ -108,6 +143,11 @@ int getRand(float low, float high)
 
 float score(PVector cur, PVector goal)
 {
-  goal.sub(cur);
-  return (float)goal.mag();
+  return PVector.dist(goal, cur);
+}
+
+void printScore()
+{
+  fill(0);
+  text("Score " + head.getScore(), 25, 10);
 }
