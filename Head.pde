@@ -5,6 +5,7 @@ class Head
   float size;
   color c;
   char blockKey;
+  int score;
   
   Body body;
   
@@ -15,6 +16,7 @@ class Head
     this.dir = new IVec(-1, 0);
     blockKey = 0;
     this.c = c;
+    score = 0;
     body = new Body(x + 1, y, size, c, bodycount);
   }
     
@@ -79,6 +81,7 @@ class Head
     IVec fpos = food.getPos();
     if(fpos.x == pos.x && fpos.y == pos.y)
     {
+      score++;
       return true;
     }
     else
@@ -93,16 +96,14 @@ class Head
     Body cur = this.body;
     Body clear;
     IVec clearPos;
-    println("here");
+
     if(nodeBody == null)
     {
-      println("There");
       return;
     }    
 
     while(cur != null)
     {
-      println("loop");
       if(cur.getNext() == nodeBody)
       {
         clear = cur.getNext();
@@ -119,5 +120,10 @@ class Head
       
       cur = cur.getNext();
     }
+  }
+  
+  int getScore()
+  {
+    return score;
   }
 }
