@@ -41,6 +41,7 @@ void draw()
         break;
         case 2:
         bot = new Bot(25, 25, sqWidth, color(0), 1);
+        head = new Head(10, 10, sqWidth, color(0), 1);
         food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
         bot.setGoal(food.getPos());
         bot.seek();
@@ -87,9 +88,10 @@ void draw()
       }
       if(frameCount % 5 == 0)
       {
-        bot.seek();
+        
         bot.botDir();
         bot.move();
+        head.move();
         if(bot.eat(food))
         {
           bot.addBody();
@@ -97,9 +99,18 @@ void draw()
           food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
           bot.setGoal(food.getPos());
         }
+        
+        if(head.eat(food))
+        {      
+          head.addBody();
+          food.unset();
+          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          bot.setGoal(food.getPos());
+        }
       
         bot.eat();
       }
+    bot.seek();
     break;
   }
 }
@@ -110,6 +121,9 @@ void keyPressed()
   switch(state)
   {
     case 1:
+    head.setDir();
+    break;
+    case 2:
     head.setDir();
     break;
   }
