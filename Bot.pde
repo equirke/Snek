@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.EmptyStackException;
 
 class Bot extends Head
 {
@@ -131,35 +132,42 @@ class Bot extends Head
   
   void botDir()
   {
-    Node target = path.peek();
-    
-    if(target != null)
+    try
     {
+      Node target = path.peek();
       
-      IVec targetPos = target.getIVec();
-      if(node[pos.x][pos.y] == target)
+      if(target != null)
       {
-        path.pop();
+        
+        IVec targetPos = target.getIVec();
+        if(node[pos.x][pos.y] == target)
+        {
+          path.pop();
+        }
+        else
+        {
+          if(targetPos.x < pos.x)
+          {
+            dir.set(-1, 0);
+          }
+          else if(targetPos.y < pos.y)
+          {
+            dir.set(0, -1);
+          }
+          else if(targetPos.x > pos.x)
+          {
+            dir.set(1, 0);
+          }
+          else if(targetPos.y > pos.y)
+          {
+            dir.set(0, 1);
+          }
+        }
       }
-      else
-      {
-        if(targetPos.x < pos.x)
-        {
-          dir.set(-1, 0);
-        }
-        else if(targetPos.y < pos.y)
-        {
-          dir.set(0, -1);
-        }
-        else if(targetPos.x > pos.x)
-        {
-          dir.set(1, 0);
-        }
-        else if(targetPos.y > pos.y)
-        {
-          dir.set(0, 1);
-        }
-      }
+    }
+    catch(EmptyStackException e)
+    {
+      dir.set(getRand(0, 1), getRand(0,1));
     }
   }
 
