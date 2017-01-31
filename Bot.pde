@@ -54,13 +54,14 @@ class Bot extends Head
       }
       
       closed.add(cur);
+      cur.closed = true;
       open.remove(index);
       fscore.remove(index);
       IVec curPos = cur.getIVec();
       
       ArrayList<Node> neighbour = new ArrayList<Node>();
       int numNeighbour = 0;
-      println(curPos.x + " " + curPos.y);
+      //println(curPos.x + " " + curPos.y);
       if(curPos.x+1 < 50)
       {
         neighbour.add(node[curPos.x+1][curPos.y]);
@@ -82,7 +83,7 @@ class Bot extends Head
         numNeighbour++;
       }
       
-      minScore = score(node[pos.x][pos.y].getPos(), cur.getPos()) + sqWidth;
+      minScore = score(node[pos.x][pos.y].getPos(), cur.getPos()) + (sqWidth);
       index = 0;
       for(int x = 0; x < numNeighbour; x++)
       {        
@@ -93,17 +94,26 @@ class Bot extends Head
         
         if(neighbour.get(x).getBody() != null)
         {
+          closed.add(neighbour.get(x));
+          neighbour.get(x).closed = true;
+          continue;
+        }
+        
+        if(neighbour.get(x).getHead() != null)
+        {
+          closed.add(neighbour.get(x));
+          neighbour.get(x).closed = true;
           continue;
         }
         
         if(open.contains(neighbour.get(x)) == false)
         {
           open.add(neighbour.get(x));
+          neighbour.get(x).open = true;
           float g = score(node[pos.x][pos.y].getPos(), neighbour.get(x).getPos());
           if(g <= minScore)
           {
             index = x;
-            minScore = g;
             neighbour.get(index).setCameFrom(cur);
           }
           float f = score(neighbour.get(x).getPos(), end.getPos());
@@ -125,7 +135,10 @@ class Bot extends Head
       path.push(cur);
       cur = cur.getCameFrom();
       prev.setCameFrom(null);
-      println("building");
+      prev.path = true;
+      prev.closed = false;
+      prev.open = false;
+      //println("building");
     }
     
   }

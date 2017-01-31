@@ -2,6 +2,7 @@ class Head
 {
   IVec pos;
   IVec dir;
+  IVec oldDir;
   float size;
   color c;
   char blockKey;
@@ -14,6 +15,7 @@ class Head
     pos = new IVec(x, y);
     this.size = size;
     this.dir = new IVec(-1, 0);
+    this.oldDir = new IVec(dir.x, dir.y);
     blockKey = 0;
     this.c = c;
     score = 0;
@@ -24,7 +26,15 @@ class Head
   {
     node[pos.x][pos.y].unset(this);
     body.move(this.pos);
-    pos.add(dir);
+    if(oldDir.x == dir.x && oldDir.y == dir.y)
+    {
+      pos.add(oldDir);
+    }
+    else
+    {
+      pos.add(dir);
+      oldDir.set(dir);
+    }
     /*This unweildy bit of maths is needed as
     the % operator returns the remainder rather
     than the modulus in java*/

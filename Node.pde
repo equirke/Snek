@@ -5,6 +5,9 @@ class Node
   Head head;
   Body body;
   Food food;
+  boolean closed;
+  boolean open;
+  boolean path;
   Node cameFrom;
   
   Node(float x, float y, int i, int j)
@@ -55,6 +58,23 @@ class Node
   
   void render()
   {
+    if(open)
+    {
+      fill(0, 255, 255);
+      rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
+    }
+    
+    if(closed)
+    {
+      fill(0, 255, 0);
+      rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
+    }
+    
+    if(path)
+    {
+      fill(255, 0, 255);
+      rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
+    }
     
     if(food != null)
     {
@@ -80,6 +100,10 @@ class Node
     return body;
   }
   
+  Head getHead()
+  {
+    return head;
+  }
   PVector getPos()
   {
     return pos;

@@ -40,8 +40,8 @@ void draw()
         state = 1;
         break;
         case 2:
-        bot = new Bot(25, 25, sqWidth, color(0), 1);
-        head = new Head(10, 10, sqWidth, color(0), 1);
+        bot = new Bot(25, 25, sqWidth, color(128), 1);
+        head = new Head(10, 10, sqWidth, color(0), 10);
         food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
         bot.setGoal(food.getPos());
         bot.seek();
@@ -86,18 +86,30 @@ void draw()
           node[i][j].render();
         }
       }
+      
+      bot.seek();
       if(frameCount % 5 == 0)
       {
-        
+        head.move();
         bot.botDir();
         bot.move();
-        head.move();
+        
         if(bot.eat(food))
         {
           bot.addBody();
           food.unset();
           food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
           bot.setGoal(food.getPos());
+          
+          for(int i = 0; i < 50; i++)
+          {
+            for(int j = 0; j < 50; j++)
+            {
+              node[i][j].open = false;
+              node[i][j].closed = false;
+              node[i][j].path = false;
+            }
+          }
         }
         
         if(head.eat(food))
@@ -106,14 +118,24 @@ void draw()
           food.unset();
           food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
           bot.setGoal(food.getPos());
+          
+          for(int i = 0; i < 50; i++)
+          {
+            for(int j = 0; j < 50; j++)
+            {
+              node[i][j].open = false;
+              node[i][j].closed = false;
+              node[i][j].path = false;
+            }
+          }
         }
       
         bot.eat();
       }
-    bot.seek();
     break;
   }
 }
+
 
 
 void keyPressed()
