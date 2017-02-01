@@ -58,22 +58,27 @@ class Node
   
   void render()
   {
-    if(open)
+    switch(state)
     {
-      fill(0, 255, 255);
-      rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
-    }
-    
-    if(closed)
-    {
-      fill(0, 255, 0);
-      rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
-    }
-    
-    if(path)
-    {
-      fill(255, 0, 255);
-      rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
+      case 3:
+      if(open)
+      {
+        fill(0, 255, 0);
+        rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
+      }
+      
+      if(closed)
+      {
+        fill(0, 155, 0);
+        rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
+      }
+      
+      if(path)
+      {
+        fill(255, 0, 255);
+        rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
+      }
+      break;
     }
     
     if(food != null)

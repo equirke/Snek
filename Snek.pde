@@ -6,7 +6,7 @@ Food food;
 Bot bot;
 Node[][] node = new Node[50][50];
 
-MenuTile[] menu = new MenuTile[2];
+MenuTile[] menu = new MenuTile[3];
 
 void setup()
 {
@@ -15,6 +15,7 @@ void setup()
   sqWidth = width / 50;
   menu[0] = new MenuTile(100, 50, 300, 50, "Single Player", color(44, 224, 224), color(255));
   menu[1] = new MenuTile(100, 150, 300, 50, "VS AI", color(44, 224, 224), color(255));
+  menu[2] = new MenuTile(100, 250, 300, 50, "VS AI (debug)", color(44, 224, 224), color(255));
   for(int i = 0; i < 50; i++)
   {
     for(int j = 0; j < 50; j++)
@@ -41,15 +42,24 @@ void draw()
         break;
         case 2:
         bot = new Bot(25, 25, sqWidth, color(128), 1);
-        head = new Head(10, 10, sqWidth, color(0), 10);
+        head = new Head(10, 10, sqWidth, color(0), 1);
         food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
         bot.setGoal(food.getPos());
         bot.seek();
         state = 2;
         break;
+        case 3:
+        bot = new Bot(25, 25, sqWidth, color(128), 1);
+        head = new Head(10, 10, sqWidth, color(0), 10);
+        food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+        bot.setGoal(food.getPos());
+        bot.seek();
+        state = 3;
+        break;
+        
       }
       
-      for(int i = 0; i < 2; i++)
+      for(int i = 0; i < 3; i++)
       {
         menu[i].render();
       }
@@ -70,7 +80,7 @@ void draw()
         {
           head.addBody();
           food.unset();
-          food = new Food(getRand(1, 24), getRand(1, 24), sqWidth, color(255, 255, 0));
+          food = new Food(getRand(1, 49), getRand(1, 49), sqWidth, color(255, 255, 0));
         }
       
         head.eat();
@@ -87,13 +97,20 @@ void draw()
         }
       }
       
+      for(int i = 0; i < 50; i++)
+      {
+        for(int j = 0; j < 50; j++)
+        {
+          node[i][j].path = false;
+        }
+      }
+      
       bot.seek();
       if(frameCount % 5 == 0)
       {
         head.move();
         bot.botDir();
-        bot.move();
-        
+        bot.move();        
         if(bot.eat(food))
         {
           bot.addBody();
@@ -132,7 +149,71 @@ void draw()
       
         bot.eat();
       }
+      
     break;
+    
+    case 3:
+    
+    for(int i = 0; i < 50; i++)
+      {
+        for(int j = 0; j < 50; j++)
+        {
+          node[i][j].render();
+        }
+      }
+      
+      for(int i = 0; i < 50; i++)
+      {
+        for(int j = 0; j < 50; j++)
+        {
+          node[i][j].path = false;
+        }
+      }
+      
+      bot.seek();
+      if(frameCount % 10 == 0)
+      {
+        head.move();
+        bot.botDir();
+        bot.move();        
+        if(bot.eat(food))
+        {
+          bot.addBody();
+          food.unset();
+          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          bot.setGoal(food.getPos());
+          
+          for(int i = 0; i < 50; i++)
+          {
+            for(int j = 0; j < 50; j++)
+            {
+              node[i][j].open = false;
+              node[i][j].closed = false;
+              node[i][j].path = false;
+            }
+          }
+        }
+        
+        if(head.eat(food))
+        {      
+          head.addBody();
+          food.unset();
+          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          bot.setGoal(food.getPos());
+          
+          for(int i = 0; i < 50; i++)
+          {
+            for(int j = 0; j < 50; j++)
+            {
+              node[i][j].open = false;
+              node[i][j].closed = false;
+              node[i][j].path = false;
+            }
+          }
+        }
+      
+        bot.eat();
+      }
   }
 }
 
@@ -143,9 +224,8 @@ void keyPressed()
   switch(state)
   {
     case 1:
-    head.setDir();
-    break;
     case 2:
+    case 3:
     head.setDir();
     break;
   }
@@ -156,7 +236,7 @@ void mousePressed()
   switch(state)
   {
     case 0:
-      for(int i = 0; i < 2; i++)
+      for(int i = 0; i < 3; i++)
       {
         PVector mpos = menu[i].getPos();
         PVector msize = menu[i].getSize();
