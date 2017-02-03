@@ -100,35 +100,30 @@ class Head
     }
   }
   
-  void eat()
+  boolean eat()
   {
     Body nodeBody = node[pos.x][pos.y].getBody();
-    Body cur = this.body;
-    Body clear;
-    IVec clearPos;
 
     if(nodeBody == null)
     {
-      return;
-    }    
+      return false;
+    } 
+    else
+    {
+      return true;
+    }
 
+  }
+  
+  void clear()
+  {
+    Body cur = this.body;
+    node[pos.x][pos.y].unset(head);
+    IVec clearPos;
     while(cur != null)
     {
-      if(cur.getNext() == nodeBody)
-      {
-        clear = cur.getNext();
-        cur.next = null;
-        
-        while(clear != null)
-        {
-          score--;
-          clearPos = clear.getPos();
-          node[clearPos.x][clearPos.y].unset(clear);
-          clear = clear.getNext();
-        }
-        return;
-      }
-      
+      clearPos = cur.getPos();
+      node[clearPos.x][clearPos.y].unset(cur);
       cur = cur.getNext();
     }
   }
