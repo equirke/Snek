@@ -6,7 +6,7 @@ Food food;
 Bot bot;
 Node[][] node = new Node[50][50];
 
-MenuTile[] menu = new MenuTile[3];
+MenuTile[] menu = new MenuTile[4];
 
 void setup()
 {
@@ -16,6 +16,7 @@ void setup()
   menu[0] = new MenuTile(100, 50, 300, 50, "Single Player", color(44, 224, 224), color(255));
   menu[1] = new MenuTile(100, 150, 300, 50, "VS AI", color(44, 224, 224), color(255));
   menu[2] = new MenuTile(100, 250, 300, 50, "VS AI (debug)", color(44, 224, 224), color(255));
+  menu[3] = new MenuTile(100, 150, 300, 50, "Back to Menu", color(44, 224, 224), color(255));
   for(int i = 0; i < 50; i++)
   {
     for(int j = 0; j < 50; j++)
@@ -80,10 +81,16 @@ void draw()
         {
           head.addBody();
           food.unset();
-          food = new Food(getRand(1, 49), getRand(1, 49), sqWidth, color(255, 255, 0));
+          placeFood();
         }
       
-        head.eat();
+        if(head.eat())
+        {
+          head.clear();
+          subState = 0;
+          state = 4;
+          food.unset();
+        }
       }
             
     break;
@@ -96,15 +103,7 @@ void draw()
           node[i][j].render();
         }
       }
-      
-      for(int i = 0; i < 50; i++)
-      {
-        for(int j = 0; j < 50; j++)
-        {
-          node[i][j].path = false;
-        }
-      }
-      
+        
       bot.seek();
       if(frameCount % 5 == 0)
       {
@@ -115,25 +114,15 @@ void draw()
         {
           bot.addBody();
           food.unset();
-          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          placeFood();
           bot.setGoal(food.getPos());
-          
-          for(int i = 0; i < 50; i++)
-          {
-            for(int j = 0; j < 50; j++)
-            {
-              node[i][j].open = false;
-              node[i][j].closed = false;
-              node[i][j].path = false;
-            }
-          }
         }
         
         if(head.eat(food))
         {      
           head.addBody();
           food.unset();
-          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          placeFood();
           bot.setGoal(food.getPos());
           
           for(int i = 0; i < 50; i++)
@@ -147,7 +136,14 @@ void draw()
           }
         }
       
-        bot.eat();
+        if(bot.eat())
+        {
+          head.clear();
+          bot.clear();
+          subState = 0;
+          state = 4;
+          food.unset();
+        }
       }
       
     break;
@@ -180,7 +176,7 @@ void draw()
         {
           bot.addBody();
           food.unset();
-          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          placeFood();
           bot.setGoal(food.getPos());
           
           for(int i = 0; i < 50; i++)
@@ -198,7 +194,7 @@ void draw()
         {      
           head.addBody();
           food.unset();
-          food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
+          placeFood();
           bot.setGoal(food.getPos());
           
           for(int i = 0; i < 50; i++)
@@ -211,9 +207,19 @@ void draw()
             }
           }
         }
-      
-        bot.eat();
+        
+        if(bot.eat())
+        {
+          head.clear();
+          bot.clear();
+          subState = 0;
+          state = 4;
+          food.unset();
+        }
       }
+      case 4:
+        menu[3].render();
+      break;
   }
 }
 
@@ -249,6 +255,17 @@ void mousePressed()
         }
       }
     break;
+    case 4:
+      PVector mpos = menu[3].getPos();
+      PVector msize = menu[3].getSize();
+        if(mouseX > mpos.x && mouseY > mpos.y)
+        {
+          if(mouseX < mpos.x + msize.x && mouseY < mpos.y + msize.y)
+          {
+            state = 0;
+          }
+        }
+    break;
   }
 }
 
@@ -266,4 +283,19 @@ void printScore()
 {
   fill(0);
   text("Score " + head.getScore(), 25, 10);
+}
+
+void placeFood()
+{
+  int i, j;
+  i = getRand(1, 49);
+  j = getRand(1, 49);
+  
+  while(node[i][j].getBody() != null)
+  {
+    i = getRand(1, 49);
+    j = getRand(1, 49);
+  }
+  
+  food = new Food(i, j, sqWidth, color(255, 255, 0));
 }
