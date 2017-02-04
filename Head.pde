@@ -103,8 +103,9 @@ class Head
   boolean eat()
   {
     Body nodeBody = node[pos.x][pos.y].getBody();
+    Head nodeHead = node[pos.x][pos.y].getHead();
 
-    if(nodeBody == null)
+    if(nodeBody == null || nodeHead == null)
     {
       return false;
     } 
