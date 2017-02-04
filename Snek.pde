@@ -104,23 +104,14 @@ void draw()
           node[i][j].render();
         }
       }
-        
-      
+     
+     
       if(frameCount % 5 == 0)
       {
         bot.setGoal(food.getPos());
         bot.seek();
         head.move();
-        
-        if(head.eat())
-        {
-          head.clear();
-          bot.clear();
-          subState = 0;
-          state = 4;
-          food.unset();
-        }
-        
+                
         try
         {
           bot.botDir();
@@ -132,16 +123,7 @@ void draw()
           bot.setDir();
         }
         bot.move();
-        
-        if(bot.eat())
-        {
-          head.clear();
-          bot.clear();
-          subState = 0;
-          state = 4;
-          food.unset();
-        }
-        
+                
         if(bot.eat(food))
         {
           bot.addBody();
@@ -156,6 +138,24 @@ void draw()
           placeFood();
         }
               
+      }
+      
+      if(head.eat())
+      {
+        bot.clear();
+        head.clear();
+        subState = 0;
+        state = 4;
+        food.unset();
+      }
+      
+      if(bot.eat())
+      {
+        bot.clear();
+        head.clear();
+        subState = 0;
+        state = 4;
+        food.unset();
       }
       
     break;
