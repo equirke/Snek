@@ -145,42 +145,36 @@ class Bot extends Head
   
   void botDir()
   {
-    try
+
+    Node target = path.peek();
+    
+    if(target != null)
     {
-      Node target = path.peek();
       
-      if(target != null)
+      IVec targetPos = target.getIVec();
+      if(node[pos.x][pos.y] == target)
       {
-        
-        IVec targetPos = target.getIVec();
-        if(node[pos.x][pos.y] == target)
+        path.pop();
+      }
+      else
+      {
+        if(targetPos.x < pos.x)
         {
-          path.pop();
+          dir.set(-1, 0);
         }
-        else
+        else if(targetPos.y < pos.y)
         {
-          if(targetPos.x < pos.x)
-          {
-            dir.set(-1, 0);
-          }
-          else if(targetPos.y < pos.y)
-          {
-            dir.set(0, -1);
-          }
-          else if(targetPos.x > pos.x)
-          {
-            dir.set(1, 0);
-          }
-          else if(targetPos.y > pos.y)
-          {
-            dir.set(0, 1);
-          }
+          dir.set(0, -1);
+        }
+        else if(targetPos.x > pos.x)
+        {
+          dir.set(1, 0);
+        }
+        else if(targetPos.y > pos.y)
+        {
+          dir.set(0, 1);
         }
       }
-    }
-    catch(EmptyStackException e)
-    {
-      dir.set(getRand(0, 1), getRand(0,1));
     }
   }
 
