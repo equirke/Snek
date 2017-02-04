@@ -34,6 +34,7 @@ void draw()
   switch(state)
   {
     case 0:
+    frameRate(60);
       switch(subState)
       {
         case 1:
@@ -51,11 +52,11 @@ void draw()
         break;
         case 3:
         bot = new Bot(25, 25, sqWidth, color(128), 1);
-        head = new Head(10, 10, sqWidth, color(0), 10);
         food = new Food(getRand(2, 23), getRand(2, 23), sqWidth, color(255, 255, 0));
         bot.setGoal(food.getPos());
         bot.seek();
         state = 3;
+        frameRate(600);
         break;
         
       }
@@ -104,18 +105,28 @@ void draw()
         }
       }
         
-      bot.seek();
+      
       if(frameCount % 5 == 0)
       {
+        bot.setGoal(food.getPos());
+        bot.seek();
         head.move();
-        bot.botDir();
+        try
+        {
+          bot.botDir();
+        }
+        catch(EmptyStackException e)
+        {
+          bot.setGoal(new IVec(2, 2));
+          bot.seek();
+          bot.setDir();
+        }
         bot.move();        
         if(bot.eat(food))
         {
           bot.addBody();
           food.unset();
           placeFood();
-          bot.setGoal(food.getPos());
         }
         
         if(head.eat(food))
@@ -123,7 +134,6 @@ void draw()
           head.addBody();
           food.unset();
           placeFood();
-          bot.setGoal(food.getPos());
           
           for(int i = 0; i < 50; i++)
           {
@@ -137,6 +147,15 @@ void draw()
         }
       
         if(bot.eat())
+        {
+          head.clear();
+          bot.clear();
+          subState = 0;
+          state = 4;
+          food.unset();
+        }
+        
+        if(head.eat())
         {
           head.clear();
           bot.clear();
@@ -157,27 +176,27 @@ void draw()
           node[i][j].render();
         }
       }
-      
-      for(int i = 0; i < 50; i++)
+            
+      if(frameCount % 5 == 0)
       {
-        for(int j = 0; j < 50; j++)
+        bot.setGoal(food.getPos());
+        bot.seek();
+        try
         {
-          node[i][j].path = false;
+          bot.botDir();
         }
-      }
-      
-      bot.seek();
-      if(frameCount % 10 == 0)
-      {
-        head.move();
-        bot.botDir();
+        catch(EmptyStackException e)
+        {
+          bot.setGoal(new IVec(48, 48));
+          bot.seek();
+          bot.setDir();
+        }
         bot.move();        
         if(bot.eat(food))
         {
           bot.addBody();
           food.unset();
           placeFood();
-          bot.setGoal(food.getPos());
           
           for(int i = 0; i < 50; i++)
           {
@@ -189,36 +208,25 @@ void draw()
             }
           }
         }
-        
-        if(head.eat(food))
-        {      
-          head.addBody();
-          food.unset();
-          placeFood();
-          bot.setGoal(food.getPos());
-          
-          for(int i = 0; i < 50; i++)
-          {
-            for(int j = 0; j < 50; j++)
-            {
-              node[i][j].open = false;
-              node[i][j].closed = false;
-              node[i][j].path = false;
-            }
-          }
-        }
-        
+                
         if(bot.eat())
         {
-          head.clear();
           bot.clear();
           subState = 0;
           state = 4;
           food.unset();
         }
       }
+            
+      break;
+      
       case 4:
         menu[3].render();
+        fill(0);
+        if(head != null)
+          text("You score is:" + head.getScore(),250, 100);
+        if(bot != null)
+          text("Bot's score is:" + bot.getScore(), 250, 120);
       break;
   }
 }
