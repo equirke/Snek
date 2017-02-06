@@ -9,6 +9,8 @@ itself the game is over.
 It currently has wrapping borders. That is, if
 the Snake reaches the edge of a screen it will reappear 
 on the opposite edge.
+I believe this is too easy, even with a smaller playing field
+so I intend to remove it.
 
 There is a VS mode where you can play against an AI Snake(You will lose).
 There is a debug mode where you can simply view the AI in action, 
@@ -17,9 +19,15 @@ as well as being able to view its pathfinding.
 #Code Worth Viewing
 
 * [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L22)
+	
+	The type of pathfinding is best first, although what If
+	was trying to write was Astar(Mine uses a different 
+	heuristic).
 	The bot will eventually die at around 65 food pieces eaten
 	At around this point it will either surround itself
-	or consume a food piece with no exit route.
+	or consume a food piece with no exit route out. 
+	Otherwise the bot is quite adept at avoid both itself
+	and the player.
 
 * [Code to avoid placing food on a occupied node](https://github.com/equirke/Snek/blob/master/Snek.pde#L297)
 
