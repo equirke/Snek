@@ -27,6 +27,8 @@ void setup()
       //println(i + " " + j);
     }
   }
+  bot = new Bot(15, 15, sqWidth, color(0), 1);
+  placeFood();
   frameRate(60);
 }
 
@@ -36,15 +38,66 @@ void draw()
   switch(state)
   {
     case 0:
-    frameRate(60);
+      for(int i = 0; i < gHeight; i++)
+      {
+        for(int j = 0; j < gWidth; j++)
+        {
+          node[i][j].render();
+        }
+      }
+      
+      bot.setGoal(food.getPos());
+      bot.seek();
+              
+      try
+      {
+        bot.botDir();
+      }
+      catch(EmptyStackException e)
+      {
+        bot.setGoal(new IVec(2, 2));
+        bot.seek();
+        bot.setDir();
+      }
+      bot.move();
+      
+      if(bot.eat(food))
+      {
+        bot.addBody();
+        food.unset();
+        placeFood();
+      }
+      
+      if(bot.eat())
+      {
+        bot.clear();
+        bot = new Bot(15, 15, sqWidth, color(0), 1);
+      }
+      
+      for(int i = 0; i < 3; i++)
+      {
+        menu[i].render();
+      }
       switch(subState)
       {
         case 1:
+        if(bot != null)
+        {
+          bot.clear();
+          bot = null;
+          food.unset();
+        }
         head = new Head(15, 15, sqWidth, color(0), 1);
         placeFood();
         state = 1;
         break;
         case 2:
+        if(bot != null)
+        {
+          bot.clear();
+          bot = null;
+          food.unset();
+        }
         bot = new Bot(15, 15, sqWidth, color(128), 1);
         head = new Head(10, 10, sqWidth, color(0), 1);
         placeFood();
@@ -53,6 +106,12 @@ void draw()
         state = 2;
         break;
         case 3:
+        if(bot != null)
+        {
+          bot.clear();
+          bot = null;
+          food.unset();
+        }
         head = null;
         bot = new Bot(15, 15, sqWidth, color(52, 192, 216), 1);
         placeFood();
@@ -64,10 +123,6 @@ void draw()
         
       }
       
-      for(int i = 0; i < 3; i++)
-      {
-        menu[i].render();
-      }
     break;
     case 1:
       printScore();
@@ -220,6 +275,7 @@ void draw()
       break;
       
       case 4:
+        frameRate(60);
         menu[3].render();
         fill(0);
         if(head != null)
@@ -269,6 +325,7 @@ void mousePressed()
           if(mouseX < mpos.x + msize.x && mouseY < mpos.y + msize.y)
           {
             state = 0;
+            bot = new Bot(15, 15, sqWidth, color(0), 1);
           }
         }
     break;

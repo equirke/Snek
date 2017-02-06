@@ -20,13 +20,13 @@ as well as being able to view its pathfinding.
 
 * [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L22)
 	
-	The type of pathfinding is best first, although what If
+	The type of pathfinding is best first, although what I
 	was trying to write was Astar(Mine uses a different 
 	heuristic).
 	The bot will eventually die at around 65 food pieces eaten
 	At around this point it will either surround itself
 	or consume a food piece with no exit route out. 
-	Otherwise the bot is quite adept at avoid both itself
+	Otherwise the bot is quite adept at avoiding both itself
 	and the player.
 
 * [Code to avoid placing food on a occupied node](https://github.com/equirke/Snek/blob/master/Snek.pde#L297)
