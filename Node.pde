@@ -63,19 +63,19 @@ class Node
       case 3:
       if(open)
       {
-        fill(0, 255, 0);
+        fill(54, 142, 71);
         rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
       }
       
       if(closed)
       {
-        fill(0, 155, 0);
+        fill(6, 76, 20);
         rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
       }
       
       if(path)
       {
-        fill(255, 0, 255);
+        fill(71, 39, 73);
         rect(pos.x, pos.y, sqWidth-2, sqWidth-2);
       }
       break;

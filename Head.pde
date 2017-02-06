@@ -26,20 +26,17 @@ class Head
   {
     node[pos.x][pos.y].unset(this);
     body.move(this.pos);
-    if(oldDir.x == dir.x && oldDir.y == dir.y)
+    if(oldDir.x != dir.x && oldDir.y != dir.y)
     {
-      pos.add(oldDir);
-    }
-    else
-    {
-      pos.add(dir);
       oldDir.set(dir);
     }
-    /*This unweildy bit of maths is needed as
+    
+    pos.add(oldDir);
+    /*This unwieldy bit of maths is needed as
     the % operator returns the remainder rather
     than the modulus in java*/
-    pos.x = (((pos.x % 50) + 50) % 50);
-    pos.y = (((pos.y % 50) + 50) % 50);
+    pos.x = (((pos.x % gWidth) + gWidth) % gWidth);
+    pos.y = (((pos.y % gHeight) + gHeight) % gHeight);
     node[pos.x][pos.y].set(this);
   }
   

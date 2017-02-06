@@ -62,7 +62,7 @@ class Bot extends Head
       ArrayList<Node> neighbour = new ArrayList<Node>();
       int numNeighbour = 0;
       //println(curPos.x + " " + curPos.y);
-      if(curPos.x+1 < 50)
+      if(curPos.x+1 < gWidth)
       {
         neighbour.add(node[curPos.x+1][curPos.y]);
         numNeighbour++;
@@ -72,7 +72,7 @@ class Bot extends Head
         neighbour.add(node[curPos.x-1][curPos.y]);
         numNeighbour++;
       }
-      if(curPos.y+1 < 50)
+      if(curPos.y+1 < gHeight)
       {
         neighbour.add(node[curPos.x][curPos.y+1]);
         numNeighbour++;
