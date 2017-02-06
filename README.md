@@ -10,6 +10,16 @@ It currently has wrapping borders. That is, if
 the Snake reaches the edge of a screen it will reappear 
 on the opposite edge.
 
+There is a VS mode where you can play against an AI Snake(You will lose).
+There is a debug mode where you can simply view the AI in action, 
+as well as being able to view its pathfinding.
+
+#Code Worth Viewing
+
+* [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L22)
+
+* [Code to avoid placing food on a occupied node](https://github.com/equirke/Snek/blob/master/Snek.pde#L297)
+
 #Controls
 
 	Make sure capslock is off.
