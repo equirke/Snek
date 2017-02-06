@@ -17,6 +17,9 @@ as well as being able to view its pathfinding.
 #Code Worth Viewing
 
 * [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L22)
+	The bot will eventually die at around 65 food pieces eaten
+	At around this point it will either surround its self
+	or consume a food piece with no exit root.
 
 * [Code to avoid placing food on a occupied node](https://github.com/equirke/Snek/blob/master/Snek.pde#L297)
 
