@@ -300,7 +300,7 @@ void placeFood()
   i = getRand(1, gHeight - 1);
   j = getRand(1, gWidth - 1);
   
-  while(node[i][j].getBody() != null)
+  while(node[i][j].getBody() != null || node[i][j].getHead() != null)
   {
     i = getRand(1, gHeight - 1);
     j = getRand(1, gWidth - 1);
