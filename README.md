@@ -13,7 +13,7 @@ on the opposite edge.
 #Controls
 
 	Make sure capslock is off.
-*a - go left
-*d - go right
-*w - go up
-*s - go down
+* a - go left
+* d - go right
+* w - go up
+* s - go down
