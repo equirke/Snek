@@ -17,7 +17,7 @@ void setup()
   sqWidth = width / 25;
   menu[0] = new MenuTile(100, 50, 300, 50, "Single Player", color(44, 224, 224), color(255));
   menu[1] = new MenuTile(100, 150, 300, 50, "VS AI", color(44, 224, 224), color(255));
-  menu[2] = new MenuTile(100, 250, 300, 50, "VS AI (debug)", color(44, 224, 224), color(255));
+  menu[2] = new MenuTile(100, 250, 300, 50, "AI (debug)", color(44, 224, 224), color(255));
   menu[3] = new MenuTile(100, 150, 300, 50, "Back to Menu", color(44, 224, 224), color(255));
   for(int i = 0; i < 25; i++)
   {
@@ -59,7 +59,7 @@ void draw()
         bot.setGoal(food.getPos());
         bot.seek();
         state = 3;
-        frameRate(600);
+        frameRate(300);
         break;
         
       }
