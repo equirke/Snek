@@ -1,3 +1,8 @@
+/*
+  The node stores the location of each  body part of 
+  any Snake. It is used for rendering the Snakes and
+  food in game. It is also used by the bot for pathfinding.
+*/
 class Node
 {
   PVector pos;
@@ -56,6 +61,9 @@ class Node
     this.food = null;
   }
   
+  /*The node colors itself
+  based on what is contained 
+  within it*/
   void render()
   {
     switch(state)

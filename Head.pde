@@ -10,6 +10,10 @@ class Head
   
   Body body;
   
+  /*
+    Initialises the head and calls the body
+    initialiser
+  */
   Head(int x, int y, float size, color c, int bodycount)
   {
     pos = new IVec(x, y);
@@ -21,7 +25,10 @@ class Head
     score = 0;
     body = new Body(x + 1, y, size, c, bodycount);
   }
-    
+   
+   /*Moves the head and also moves the body
+   Checks to make sure the snake is not heading
+   back in on itself*/
   void move()
   {
     node[pos.x][pos.y].unset(this);
@@ -34,7 +41,9 @@ class Head
     pos.add(oldDir);
     /*This unwieldy bit of maths is needed as
     the % operator returns the remainder rather
-    than the modulus in java*/
+    than the modulus in java.
+    Wraps the Snake to the opposite edge of
+    any screen they hit*/
     pos.x = (((pos.x % gWidth) + gWidth) % gWidth);
     pos.y = (((pos.y % gHeight) + gHeight) % gHeight);
     node[pos.x][pos.y].set(this);
@@ -156,6 +165,7 @@ class Head
     return false;
   }
   
+  //Clears the Snake from the Node array
   void clear()
   {
     Body cur = this.body;

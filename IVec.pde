@@ -1,3 +1,7 @@
+/*
+  Stores the position of
+  an object in a 2d array
+*/
 class IVec
 {
   int x, y;

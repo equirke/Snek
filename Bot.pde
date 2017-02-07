@@ -1,15 +1,21 @@
-import java.util.Stack;
+/*A stack is used for storing the path
+as the path is contructed in reverse*/
+import java.util.Stack; 
+/*If no path is made then the stack
+will be empty. This exception is caught 
+in the mainfile(Snek.pde)*/
 import java.util.EmptyStackException;
 
 class Bot extends Head
 {
-  ArrayList<Node> open;
-  ArrayList<Node> closed;
-  ArrayList<Float> fscore;
-  Stack<Node> path;
-  Node start;
-  Node end;
+  ArrayList<Node> open;  //open list(All nodes available to check)
+  ArrayList<Node> closed; //closed list(All nodes already checked)
+  ArrayList<Float> fscore; //stores the distance from the goal for all nodes
+  Stack<Node> path; //stores the path created for the node
+  Node start; //The start point
+  Node end; //The end
   
+  /*Initialises the Bot and the super class.*/
   Bot(int x, int y, float size, color c, int bodyCount)
   {
     super(x, y, size, c, bodyCount);
@@ -19,18 +25,26 @@ class Bot extends Head
     fscore = new ArrayList<Float>();
   }
   
+  /*Pathfinding Algorithm. It is best first search*/
   boolean seek()
   {
+    //Clears all the lists and the path stack
     open.clear();
     closed.clear();
     path.clear();
     fscore.clear();
+    //Finds the node currenlty occupied
+    //by the Snakes head
     Node cur = node[pos.x][pos.y];
+    //Calculates the fscore
     fscore.add(new Float(score(cur.getPos(), end.getPos())));
+    //Adds itself to the openList
     open.add(cur);
     
+    //While there is still nodes in the empty list
     while(!open.isEmpty())
     {
+      //Chose the one Node with the smallest fscore
       float minScore = fscore.get(0).floatValue();
       int index = 0;
       for(int x = 0; x < open.size(); x++)
@@ -45,23 +59,34 @@ class Bot extends Head
         }
       }
       
+      //cur now equals this node with 
+      //the best score
       cur = open.get(index);
       
+      //If we have found the end
       if(cur == end)
       {
+        //Construct a path to it based on what we've done
         buildPath(cur);
         return true;
       }
       
+      //We've checked the cur, add it to closed list
+      //Remove it from the open list
       closed.add(cur);
+      //for debug display
       cur.closed = true;
       open.remove(index);
       fscore.remove(index);
+      //get the location of the current
       IVec curPos = cur.getIVec();
-      
+      //Make a new list for neighbouring Nodes
       ArrayList<Node> neighbour = new ArrayList<Node>();
       int numNeighbour = 0;
       //println(curPos.x + " " + curPos.y);
+      
+      //Foreach neighbour that is not out
+      //of bounds. Add it to the neighbours list
       if(curPos.x+1 < gWidth)
       {
         neighbour.add(node[curPos.x+1][curPos.y]);
@@ -83,6 +108,8 @@ class Bot extends Head
         numNeighbour++;
       }
       
+      //The minScore (g Score) here is the Node's distance
+      //to the Snake's head
       minScore = score(node[pos.x][pos.y].getPos(), cur.getPos()) + (sqWidth);
       index = 0;
       for(int x = 0; x < numNeighbour; x++)
@@ -106,6 +133,9 @@ class Bot extends Head
           continue;
         }
         
+        /*If the neighbours g Score is better than the current's 
+        g Score, point it to the current node. This will later
+        be used to reconstruct the path*/
         if(open.contains(neighbour.get(x)) == false)
         {
           open.add(neighbour.get(x));
@@ -113,8 +143,7 @@ class Bot extends Head
           float g = score(node[pos.x][pos.y].getPos(), neighbour.get(x).getPos());
           if(g <= minScore)
           {
-            index = x;
-            neighbour.get(index).setCameFrom(cur);
+            neighbour.get(x).setCameFrom(cur);
           }
           float f = score(neighbour.get(x).getPos(), end.getPos());
           fscore.add(f);
@@ -126,6 +155,9 @@ class Bot extends Head
     return false;
   }
   
+  /*Reubuilds the path based 
+  on the cameFrom node set in the
+  seek()function for every Node*/
   void buildPath(Node cur)
   {
     Node prev;
@@ -135,6 +167,7 @@ class Bot extends Head
       path.push(cur);
       cur = cur.getCameFrom();
       prev.setCameFrom(null);
+      //These booleans aree for debug
       prev.path = true;
       prev.closed = false;
       prev.open = false;
@@ -143,6 +176,11 @@ class Bot extends Head
     
   }
   
+  /*Sets the Bots direction towards the
+  last node peeked on the stack
+  If we reach the node we pop the stack
+  to bring the next node to the top of 
+  the stack*/
   void botDir()
   {
 

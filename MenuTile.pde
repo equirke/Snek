@@ -1,3 +1,6 @@
+/*
+  Used to diplay menu options
+*/
 class MenuTile
 {
   PVector pos;
