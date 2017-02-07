@@ -1,3 +1,8 @@
+/*
+Eoghan Quirke
+C15507837
+Due 08/02/17
+*/
 float sqWidth;
 int state = 0;
 int subState = 0;
@@ -19,6 +24,7 @@ void setup()
   menu[1] = new MenuTile(100, 150, 300, 50, "VS AI", color(44, 224, 224), color(255));
   menu[2] = new MenuTile(100, 250, 300, 50, "AI (debug)", color(44, 224, 224), color(255));
   menu[3] = new MenuTile(100, 150, 300, 50, "Back to Menu", color(44, 224, 224), color(255));
+  
   for(int i = 0; i < 25; i++)
   {
     for(int j = 0; j < 25; j++)
@@ -37,6 +43,10 @@ void draw()
   background(255);
   switch(state)
   {
+    /*Menu State. Displays the menu
+    options. Allows the user to select
+    an option with mouse. The Bot plays
+    the game in the background*/
     case 0:
       for(int i = 0; i < gHeight; i++)
       {
@@ -124,6 +134,10 @@ void draw()
       }
       
     break;
+    /*
+      SinglePlayer State. The player controls a
+      Snake.
+    */
     case 1:
       printScore();
       for(int i = 0; i < gHeight; i++)
@@ -154,6 +168,12 @@ void draw()
             
     break;
     
+    /*
+      This is a mode
+      vs a bot. The aim is
+      to eat more than the bot before
+      either of you take up more space
+    */
     case 2:
       printScore();
       
@@ -188,11 +208,13 @@ void draw()
         bot.setGoal(food.getPos());
         bot.seek();
         head.move();
-                        
+        
+        //if no path to food
         try
         {
           bot.botDir();
         }
+        //try find path to top left corner
         catch(EmptyStackException e)
         {
           bot.setGoal(new IVec(2, 2));
@@ -233,10 +255,12 @@ void draw()
       {
         bot.setGoal(food.getPos());
         bot.seek();
+        //if no path to food
         try
         {
           bot.botDir();
         }
+        //try find path to top left corner
         catch(EmptyStackException e)
         {
           bot.setGoal(new IVec(gWidth - 2, gHeight - 2));
@@ -272,6 +296,9 @@ void draw()
             
       break;
       
+      /*
+        Game over state
+      */
       case 4:
         frameRate(60);
         menu[3].render();
@@ -330,16 +357,19 @@ void mousePressed()
   }
 }
 
+//Returns a random integer
 int getRand(float low, float high)
 {
   return floor(random(low, high));
 }
 
+//Gets the distance between 2 points for the pathfinding algorithm
 float score(PVector cur, PVector goal)
 {
   return PVector.dist(goal, cur);
 }
 
+//Prints the score for any entity
 void printScore()
 {
   fill(0);
@@ -349,6 +379,7 @@ void printScore()
     text("Score " + bot.getScore(), 475, 10);
 }
 
+//Places the food in an empty Node
 void placeFood()
 {
   int i, j;
