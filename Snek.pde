@@ -165,13 +165,30 @@ void draw()
         }
       }
      
+      if(head.eat(bot) || head.eat())
+      {
+        head.clear();
+        bot.clear();
+        subState = 0;
+        state = 4;
+        food.unset();
+      }
+      
+      if(bot.eat(head) || bot.eat())
+      {
+        bot.clear();
+        head.clear();
+        subState = 0;
+        state = 4;
+        food.unset();
+      }
      
       if(frameCount % 5 == 0)
       {
         bot.setGoal(food.getPos());
         bot.seek();
         head.move();
-                
+                        
         try
         {
           bot.botDir();
@@ -198,26 +215,7 @@ void draw()
           placeFood();
         }
               
-      }
-      
-      if(head.eat())
-      {
-        bot.clear();
-        head.clear();
-        subState = 0;
-        state = 4;
-        food.unset();
-      }
-      
-      if(bot.eat())
-      {
-        bot.clear();
-        head.clear();
-        subState = 0;
-        state = 4;
-        food.unset();
-      }
-      
+      }      
     break;
     
     case 3:
