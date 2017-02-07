@@ -113,6 +113,49 @@ class Head
 
   }
   
+  boolean eat(Head head)
+  {
+    if(pos.x == head.pos.x && pos.y == head.pos.y)
+    {
+      return true;
+    }
+    
+    Body cur = head.body;
+    while(cur != null)
+    {
+      if(pos.x == cur.pos.x && pos.y == cur.pos.y)
+      {
+        return true;
+      }
+      
+      cur = cur.getNext();
+    }
+    
+    return false;
+  }
+  
+  
+  boolean eat(Bot head)
+  {
+    if(pos.x == head.pos.x && pos.y == head.pos.y)
+    {
+      return true;
+    }
+    
+    Body cur = head.body;
+    while(cur != null)
+    {
+      if(pos.x == cur.pos.x && pos.y == cur.pos.y)
+      {
+        return true;
+      }
+      
+      cur = cur.getNext();
+    }
+    
+    return false;
+  }
+  
   void clear()
   {
     Body cur = this.body;
