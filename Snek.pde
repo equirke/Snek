@@ -3,6 +3,11 @@ Eoghan Quirke
 C15507837
 Due 08/02/17
 */
+
+import processing.sound.*;
+
+SoundFile eatSound, dieSound;
+
 float sqWidth;
 int state = 0;
 int subState = 0;
@@ -25,6 +30,9 @@ void setup()
   menu[2] = new MenuTile(100, 250, 300, 50, "AI (debug)", color(44, 224, 224), color(255));
   menu[3] = new MenuTile(100, 150, 300, 50, "Back to Menu", color(44, 224, 224), color(255));
   
+  
+  eatSound = new SoundFile(this, "beep-06.mp3");
+  dieSound = new SoundFile(this, "beep-05.mp3");
   for(int i = 0; i < 25; i++)
   {
     for(int j = 0; j < 25; j++)
@@ -155,6 +163,7 @@ void draw()
           head.addBody();
           food.unset();
           placeFood();
+          eatSound.play();
         }
       
         if(head.eat())
@@ -163,6 +172,7 @@ void draw()
           subState = 0;
           state = 4;
           food.unset();
+          dieSound.play();
         }
       }
             
@@ -192,6 +202,7 @@ void draw()
         subState = 0;
         state = 4;
         food.unset();
+        dieSound.play();
       }
       
       if(bot.eat(head) || bot.eat())
@@ -201,6 +212,7 @@ void draw()
         subState = 0;
         state = 4;
         food.unset();
+        dieSound.play();
       }
      
       if(frameCount % 5 == 0)
@@ -228,6 +240,7 @@ void draw()
           bot.addBody();
           food.unset();
           placeFood();
+          eatSound.play();
         }
         
         if(head.eat(food))
@@ -235,6 +248,7 @@ void draw()
           head.addBody();
           food.unset();
           placeFood();
+          eatSound.play();
         }
               
       }      
@@ -291,6 +305,7 @@ void draw()
           subState = 0;
           state = 4;
           food.unset();
+          dieSound.play();
         }
       }
             
