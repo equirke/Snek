@@ -1,6 +1,8 @@
 # Snek
 Second Assignment for OOP.
 
+[Video Demo]()
+
 #Summary of Workings
 This game is a simple game of Snake.
 The aim of the Snake is to consume as
@@ -67,6 +69,10 @@ as well as being able to view its pathfinding.
 	When the exception is caught the bot's goal is changed to the top 
 	left corner. If this point is also unreachable the bot will continue
 	in the direction it was already going.
+
+* [Body class initialiser](https://github.com/equirke/Snek/blob/master/Body.pde#L12)
+
+* [Body move method](https://github.com/equirke/Snek/blob/master/Body.pde#L28)
 
 #Controls
 
