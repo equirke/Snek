@@ -20,20 +20,20 @@ as well as being able to view its pathfinding.
 
 #Game Modes/States
 
-##Main Menu
+###Main Menu
 
 In this mode the menu options are displayed
 and a Bot plays Snake in the background at 
 high speeds. Game Modes can be selected with
 a mouse click on the relevant menu tile.
 
-##Single Player
+###Single Player
 	
 In this mode the player's goal is to
 eat as much food as it can without 
 colliding with itself.
 	
-##VS AI
+###VS AI
 
 In this mode the player's goal is to
 eat as much as possible while avoiding
@@ -41,7 +41,7 @@ both itself and the Snake Bot. The Bot
 uses best first pathfinding to avoid obstacles
 and for the most part will avoid the player.
 
-##AI debug
+###AI debug
 
 This is where the Bot plays the game alone.
 The pathfinding debug is shown.
