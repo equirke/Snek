@@ -25,6 +25,7 @@ as well as being able to view its pathfinding.
 	colliding with itself.
 	
 * VS AI
+
 	In this mode the player's goal is to
 	eat as much as possible while avoiding
 	both itself and the Snake Bot. The Bot
@@ -32,6 +33,7 @@ as well as being able to view its pathfinding.
 	and for the most part will avoid the player.
 
 * AI debug
+
 	This is where the Bot plays the game alone.
 	The pathfinding debug is shown.
 	
