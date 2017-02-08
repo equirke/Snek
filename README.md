@@ -56,8 +56,8 @@ The pathfinding debug is shown.
 	
 ###Game Over
 
-Displays the score of the player and/or bot
-A button is there to click to return to 
+Displays the score of the player and/or bot.
+ A button is there to click to return to 
 the menu
 
 #Code Worth Viewing
