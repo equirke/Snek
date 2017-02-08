@@ -18,7 +18,7 @@ as well as being able to view its pathfinding.
 
 #Code Worth Viewing
 
-* [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L22)
+* [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L29)
 	
 	The type of pathfinding is best first, although what I
 	was trying to write was Astar(Mine uses a different 
@@ -29,7 +29,14 @@ as well as being able to view its pathfinding.
 	Otherwise the bot is quite adept at avoiding both itself
 	and the player.
 
-* [Code to avoid placing food on a occupied node](https://github.com/equirke/Snek/blob/master/Snek.pde#L297)
+* [Code to avoid placing food on a occupied node](https://github.com/equirke/Snek/blob/master/Snek.pde#L398)
+
+* [Use of try catch statement](https://github.com/equirke/Snek/blob/master/Snek.pde#L225)
+
+	This catches an empty stack exception caused in the setDir method.
+	When the exception is caught the bot's goal is changed to the top 
+	left corner. If this point is also unreachable the bot will continue
+	in the direction it was already going.
 
 #Controls
 
