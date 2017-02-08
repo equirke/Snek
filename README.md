@@ -18,15 +18,22 @@ There is a VS mode where you can play against an AI Snake(You will lose).
 There is a debug mode where you can simply view the AI in action, 
 as well as being able to view its pathfinding.
 
-#Game Modes
+#Game Modes/States
 
-* Single Player
+##Main Menu
+
+	In this mode the menu options are displayed
+	and a Bot plays Snake in the background at 
+	high speeds. Game Modes can be selected with
+	a mouse click on the relevant menu tile.
+
+##Single Player
 	
 	In this mode the player's goal is to
 	eat as much food as it can without 
 	colliding with itself.
 	
-* VS AI
+##VS AI
 
 	In this mode the player's goal is to
 	eat as much as possible while avoiding
@@ -34,7 +41,7 @@ as well as being able to view its pathfinding.
 	uses best first pathfinding to avoid obstacles
 	and for the most part will avoid the player.
 
-* AI debug
+##AI debug
 
 	This is where the Bot plays the game alone.
 	The pathfinding debug is shown.
@@ -66,6 +73,7 @@ as well as being able to view its pathfinding.
 * [Use of try catch statement](https://github.com/equirke/Snek/blob/master/Snek.pde#L225)
 
 	This catches an empty stack exception caused in the setDir method.
+	This exception is thrown when a route could not be made to the goal.
 	When the exception is caught the bot's goal is changed to the top 
 	left corner. If this point is also unreachable the bot will continue
 	in the direction it was already going.
