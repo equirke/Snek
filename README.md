@@ -22,29 +22,29 @@ as well as being able to view its pathfinding.
 
 ##Main Menu
 
-	In this mode the menu options are displayed
-	and a Bot plays Snake in the background at 
-	high speeds. Game Modes can be selected with
-	a mouse click on the relevant menu tile.
+In this mode the menu options are displayed
+and a Bot plays Snake in the background at 
+high speeds. Game Modes can be selected with
+a mouse click on the relevant menu tile.
 
 ##Single Player
 	
-	In this mode the player's goal is to
-	eat as much food as it can without 
-	colliding with itself.
+In this mode the player's goal is to
+eat as much food as it can without 
+colliding with itself.
 	
 ##VS AI
 
-	In this mode the player's goal is to
-	eat as much as possible while avoiding
-	both itself and the Snake Bot. The Bot
-	uses best first pathfinding to avoid obstacles
-	and for the most part will avoid the player.
+In this mode the player's goal is to
+eat as much as possible while avoiding
+both itself and the Snake Bot. The Bot
+uses best first pathfinding to avoid obstacles
+and for the most part will avoid the player.
 
 ##AI debug
 
-	This is where the Bot plays the game alone.
-	The pathfinding debug is shown.
+This is where the Bot plays the game alone.
+The pathfinding debug is shown.
 	
 	Key: Turquoise - The Bot Snake
 	
@@ -59,24 +59,24 @@ as well as being able to view its pathfinding.
 
 * [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L29)
 	
-	The type of pathfinding is best first, although what I
-	was trying to write was Astar(Mine uses a different 
-	heuristic).
-	The bot will eventually die at around 65 food pieces eaten
-	At around this point it will either surround itself
-	or consume a food piece with no exit route out. 
-	Otherwise the bot is quite adept at avoiding both itself
-	and the player.
+The type of pathfinding is best first, although what I
+was trying to write was Astar(Mine uses a different 
+heuristic).
+The bot will eventually die at around 65 food pieces eaten
+At around this point it will either surround itself
+or consume a food piece with no exit route out. 
+Otherwise the bot is quite adept at avoiding both itself
+and the player.
 
 * [Code to avoid placing food on a occupied node](https://github.com/equirke/Snek/blob/master/Snek.pde#L398)
 
 * [Use of try catch statement](https://github.com/equirke/Snek/blob/master/Snek.pde#L225)
 
-	This catches an empty stack exception caused in the setDir method.
-	This exception is thrown when a route could not be made to the goal.
-	When the exception is caught the bot's goal is changed to the top 
-	left corner. If this point is also unreachable the bot will continue
-	in the direction it was already going.
+This catches an empty stack exception caused in the setDir method.
+This exception is thrown when a route could not be made to the goal.
+When the exception is caught the bot's goal is changed to the top 
+left corner. If this point is also unreachable the bot will continue
+in the direction it was already going.
 
 * [Body class initialiser](https://github.com/equirke/Snek/blob/master/Body.pde#L12)
 
