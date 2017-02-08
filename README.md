@@ -64,9 +64,17 @@ the menu
 
 * [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L29)
 	
-The type of pathfinding is [best-first](https://en.wikipedia.org/wiki/Best-first_search), although what I
+The type of pathfinding is [best-first-search](https://en.wikipedia.org/wiki/Best-first_search), although what I
 was trying to write was [A*](https://en.wikipedia.org/wiki/A*_search_algorithm)(Mine uses a different 
 heuristic).
+
+	A* uses h(n) = f(n) + g(n)
+	n = Node
+	f(n) = Distance from node to goal
+	g(n) = Distance from node to starting point
+	
+	best-first just uses f(n)
+	
 The bot will eventually die at around 65 food pieces eaten
 At around this point it will either surround itself
 or consume a food piece with no exit route out. 
