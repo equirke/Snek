@@ -11,8 +11,9 @@ itself the game is over.
 It currently has wrapping borders. That is, if
 the Snake reaches the edge of a screen it will reappear 
 on the opposite edge.
-I believe this is too easy, even with a smaller playing field
-so I intend to remove it.
+This makes the game last somewhat longer. It also gives the player
+an edge over the AI as while the AI can used the wrapping, it doesn't know 
+it can.
 
 There is a VS mode where you can play against an AI Snake(You will lose).
 There is a debug mode where you can simply view the AI in action, 
