@@ -16,6 +16,32 @@ There is a VS mode where you can play against an AI Snake(You will lose).
 There is a debug mode where you can simply view the AI in action, 
 as well as being able to view its pathfinding.
 
+#Game Modes
+
+* Single Player
+	
+	In this mode the player's goal is to
+	eat as much food as it can without 
+	colliding with itself.
+	
+* VS AI
+	In this mode the player's goal is to
+	eat as much as possible while avoiding
+	both itself and the Snake Bot. The Bot
+	uses best first pathfinding to avoid obstacles
+	and for the most part will avoid the player.
+
+* AI debug
+	This is where the Bot plays the game alone.
+	The pathfinding debug is shown.
+	
+	Key: Turquoise - The Bot Snake
+	
+	Dark Green - Closed List
+	Lighter Green - Open List
+	Purple - Path
+
+
 #Code Worth Viewing
 
 * [The Bot's pathfinding.](https://github.com/equirke/Snek/blob/master/Bot.pde#L29)
