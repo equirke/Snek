@@ -69,6 +69,9 @@ was trying to write was [A*](https://en.wikipedia.org/wiki/A*_search_algorithm)(
 heuristic).
 
 	A* uses h(n) = f(n) + g(n)
+	to select the next node to check
+	in the open list
+	
 	n = Node
 	f(n) = Distance from node to goal
 	g(n) = Distance from node to starting point
