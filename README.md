@@ -40,7 +40,9 @@ as well as being able to view its pathfinding.
 	Key: Turquoise - The Bot Snake
 	
 	Dark Green - Closed List
+	
 	Lighter Green - Open List
+	
 	Purple - Path
 
 
